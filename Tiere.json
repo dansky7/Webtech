@@ -1,10 +1,24 @@
 [
-  {"Art": "Maus", 
-    "Eigenschaften": {"Fressen":"Insekten"}},
-  {"Art": "Katze", 
-    "Eigenschaften": {"Fressen":"Mäuse"}},
+  {
+    "Art": "Maus", 
+    "Eigenschaften": {
+       "Fressen":"Insekten"
+    }
+  },
+  {
+    "Art": "Katze", 
+    "Eigenschaften": {
+      "Fressen":"Mäuse"
+    }
+  },
   {"Art": "Hund",
-    "Eigenschaften": {"Fressen":"Kaninchen"}},
+    "Eigenschaften": {
+      "Fressen":"Kaninchen"
+    }
+  },
   {"Art": "Löwe", 
-     "Eigenschaften" :{"Fressen":"Antilopen"}}
+     "Eigenschaften" :{
+       "Fressen":"Antilopen"
+     }
+  }
 ]
