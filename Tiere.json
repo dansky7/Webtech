@@ -1,4 +1,4 @@
-{
+[
   {"Art": "Maus", 
     "Eigenschaften": {"Fressen":"Insekten"}},
   {"Art": "Katze", 
@@ -7,4 +7,4 @@
     "Eigenschaften": {"Fressen":"Kaninchen"}},
   {"Art": "Löwe", 
      "Eigenschaften" :{"Fressen":"Antilopen"}}
-}
+]
