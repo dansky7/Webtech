@@ -1,1 +1,6 @@
-{"Maus":{"Fressen":"Insekten"}, "Katze":{"Fressen":"Mäuse"}, "Hund":{"Fressen":"Kaninchen"}, "Löwe":{"Fressen":"Antilopen"}}
+{
+  {"Maus":{"Fressen":"Insekten"}},
+  {"Katze":{"Fressen":"Mäuse"}},
+  {"Hund":{"Fressen":"Kaninchen"}},
+  {"Löwe":{"Fressen":"Antilopen"}}
+}
