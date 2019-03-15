@@ -1,0 +1,154 @@
+<!--font-Awesome5-->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+
+
+<!--Übersicht-->
+<h1>aktueller Titel:</h1>
+<p></p>
+<h2>Interpret:</h2>
+<p>Imagine Dragons</p>
+<h3>Coverbild:</h3>
+<img src="http://is4.mzstatic.com/image/thumb/Music62/v4/f5/8d/2f/f58d2fc8-ef23-ec96-3886-18d06e65ae6b/source/1200x630bb.jpg" height= "200px" width="200px" style="display:block;">
+
+
+
+<!-- aktueller Titel-->
+<audio id="current"></audio>
+
+
+
+<!-- verfügbare Titel-->
+<audio id="1"><source src="1.mp3" type="audio/mpeg"></audio>
+<audio id="2"><source src="2.mp3" type="audio/mpeg"></audio>
+<audio id="3"><source src="3.mp3" type="audio/mpeg"></audio>
+<audio id="4"><source src="4.mp3" type="audio/mpeg"></audio>
+
+
+    
+<!--Kontrollbuttons -->
+<button id="play" class="fas fa-play"></button>
+<button id="pause" class="fas fa-pause"></button>
+<button id="volume" class="fas fa-volume-up"></button>
+<button id="previous" class="fas fa-fast-backward"></button>
+<button id="next" class="fas fa-fast-forward"></button>
+<button id="shuffle" class="fas fa-random"></button>
+<button id="pace" class="fas fa-bicycle"></button>
+
+<!-- Song-Liste-->
+<ul>
+    <li><button id="b1">Shots - Imagine Dragons</button></li>
+    <li><button id="b2">Gold - Image Dragons</button></li>
+    <li><button id="b3">Smoke and Mirrors - Imagine Dragons</button></li>
+    <li><button id="b4">I'm so sorry - Imagine Dragons</button></li>
+</ul>
+
+
+
+<script>
+    
+    var index =0;
+    
+    // Deklarierung
+    var songliste= document.getElementsByTagName("source");
+    var aktuellerTitel = document.getElementById("current");
+    for(let i=0;i<songliste.length;i++){
+        console.log(songliste[i]);
+    }
+    aktuellerTitel.appendChild(songliste[0]);
+    console.log(aktuellerTitel);
+    console.log(aktuellerTitel.innerHTML);
+    console.log(aktuellerTitel.firstChild);
+    console.log(updateIndex());
+    
+    // Kontrollflächen
+    var play = document.getElementById("play");
+    var pause = document.getElementById("pause");
+    var next = document.getElementById("next");
+    var previous = document.getElementById("previous");
+    play.addEventListener("click", play2);
+    pause.addEventListener("click", pause2);
+    next.addEventListener("click", next2);
+    previous.addEventListener("click", previous2);
+    
+    
+    // Songs
+    var s1 = document.getElementById("1");
+    var s2 = document.getElementById("2");
+    var s3 = document.getElementById("3");
+    var s4 = document.getElementById("4");
+    
+    
+    // Song-Schaltflächen
+    var b1 = document.getElementById("b1");
+    var b2 = document.getElementById("b2");
+    var b3 = document.getElementById("b3");
+    var b4 = document.getElementById("b4");
+    b1.addEventListener("click", startTrack);
+    b2.addEventListener("click", startTrack);
+    b3.addEventListener("click", startTrack);
+    b4.addEventListener("click", startTrack);
+    
+    
+    // media-Methoden
+    function play2(){
+        console.log("play:");
+        console.log(aktuellerTitel);
+        aktuellerTitel.play();
+    }
+    
+    function pause2(){
+        console.log("pause:");
+        aktuellerTitel.pause();
+    }
+    
+    function updateIndex(){
+        for(let i=0; i<songliste.length; i++){
+            if(songliste[i]==aktuellerTitel.firstChild){return i};
+        }
+    }
+    
+    function next2(){
+        console.log("next2() gestartet");
+        console.log(updateIndex());
+        console.log(updateIndex());
+        console.log(updateIndex());
+        console.log(songliste.length);
+        if(updateIndex()<songliste.length-1){
+            let input = songliste[updateIndex()+1];
+            console.log(input);
+            aktuellerTitel.innerHTML = "";
+            aktuellerTitel.appendChild(input);
+            console.log(updateIndex());
+            play2();
+        }else{
+            console.log("Letzter Titel erreicht!");
+        }
+        
+    }
+    
+    function previous2(){
+        console.log("previous2() gestartet");
+        console.log(currentIndex());
+        if(currentIndex()>0){
+            aktuellerTitel.innerHTML = "";
+            let input = songliste[currentIndex()];
+            console.log(input);
+            //aktuellerTitel.appendChild(songliste[currentIndex()-1]);
+            play2();
+        }else{
+            console.log("Erster Titel erreicht");
+        }
+        
+    }
+    
+    function startTrack(){
+        aktuellerTitel.innerHTML = "";
+        aktuellerTitel.appendChild(this);
+        play2();
+    }
+    
+    
+    
+    
+</script>

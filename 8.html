@@ -1,0 +1,109 @@
+<form id="Formular" action="">
+    Sucheingabe: <input id="Suchfeld" type="text"> <br>
+</form>
+
+<div id=result style="margin:2em; background-color: greenyellow; padding: 1em;">
+        <h3 id="suchergebnisHeader" style="display:inline;"></h3>
+        <p id="suchergebnis" style="display:inline;">kein Treffer</p>
+</div>
+
+<script>
+    
+    
+    /* Suchfeld*/
+    var eingabe = document.getElementById("Suchfeld");
+    var formular = document.getElementById("Formular");
+    eingabe.addEventListener("input", synchronize);
+    formular.addEventListener("submit", function(event){       // Beim Drücken der Enter-Taste wenn Fokus im Formular
+        event.preventDefault();
+        eingabe.setAttribute( "autocomplete", "off" );
+        synchronize();
+    }); 
+        
+    /* AJAJ*/
+    XMLHttpRequest //verbindet mit Server über URL
+    var request = new XMLHttpRequest();
+    
+    // Definieren des requests
+    request.open("GET", "https://dansky7.github.io/Webtech/Tiere.json");   // GET = empfangen von Daten; POST = senden von Daten
+    var json;
+    request.onload = function(){    // event-listener: sobald Daten vom Server geladen sind
+        console.log(request.responseText);      // responseText = Daten als Textdatei
+        json = JSON.parse(request.responseText);
+        console.log(json[0]);
+        console.log(JSON.stringify(json[0].Art));
+        console.log(json.length);
+    };
+    
+    // Senden des requests an Server
+    request.send();
+    
+    
+    /* Funktion*/
+    var suchergebnis;
+    var suchergebnisHeader;
+    var suchergebnisDOM=document.getElementById("suchergebnis");
+    var suchergebnisHeaderDOM=document.getElementById("suchergebnisHeader");
+    var pattern;
+    var str;
+    var boolean=false;  // Treffer bei Suchanfrage
+    var tierart;
+    var fressen;
+    
+    function synchronize(){
+        console.log("Eingabe");
+        
+        // Speichern der Eingabe in Variable
+        str = eingabe.value;
+        console.log(str);
+        
+        // Abgleichen mit JSON-Datei
+        pattern = new RegExp(str);      // case-sensitive
+        //pattern = /`${str}`/i;        // case-insensitive
+        console.log(pattern);
+    
+        // abfangen wenn Sucheingabe leer
+        if(str.length==0){                  
+            console.log("Suchfeld leer");
+            document.getElementById("suchergebnisHeader").innerHTML="";
+            document.getElementById("suchergebnis").innerHTML= "";
+            return; 
+        }
+        
+        // Vergleichen der Sucheingabe mit Tierarten in JSON-Datei
+        for(let i=0;i<json.length;i++){
+            if(pattern.test(JSON.stringify(json[i].Art))){                     // Übereinstimmung aktuelle Tierart
+                console.log("Übereinstimmung mit " + JSON.stringify(json[i].Art));
+                tierart = (JSON.stringify(json[i].Art)).substring(1,(JSON.stringify(json[i].Art)).length-1);
+                fressen = (JSON.stringify(json[i].Fressen)).substring(1,(JSON.stringify(json[i].Art)).length-1);
+                suchergebnisHeader = JSON.stringify(json[i].Art) +": ";
+                suchergebnis = "Die Tierart " +tierart+ " isst gerne " +fressen+ ".";
+                console.log(suchergebnis);
+                console.log(suchergebnisDOM);
+                console.log(typeof suchergebnis);
+                console.log(typeof suchergebnisDOM);
+                suchergebnisDOM.innerHTML = suchergebnis;
+                suchergebnisHeaderDOM.innerHTML = suchergebnisHeader;
+                boolean = true;
+            }else{                                                             
+                console.log("keine Übereinstimmung mit aktueller Tierart");              
+            }
+        }
+        
+        // wenn keine Übereinstimmung der Sucheingabe mit irgendeiner Tierart in JSON-Datei
+        if(boolean==false){
+            document.getElementById("suchergebnisHeader").innerHTML="";
+            document.getElementById("suchergebnis").innerHTML= "";
+        }
+        
+        // boolean wieder auf "false" setzen für nächsten Abgleich
+        boolean = false;
+        
+    }
+    
+    
+    
+</script>
+
+
+

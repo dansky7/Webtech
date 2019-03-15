@@ -1,0 +1,123 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<body>
+
+    <h1>Bildvorschau</h1>
+    <div id="BildProjektion">
+        <button id="leftClick" type="button">◀</button>
+        <img id="BildZentriert">
+        <button id="rightClick" type="button">▶</button>
+    </div>
+
+
+    <h1>Bildergalerie</h1>
+    <div id="Bildergalerie">
+        <img class="slideshow" src="https://www.hessenfilm.de/fileadmin/locations/Schlossgartenweiher__Stadt_Dieburg.jpg" alt="Springbrunnen im Schlossgarten">
+        <img class="slideshow" src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Fastnachtsbrunnen_Dieburg_2.jpg" alt="Fastnachtsbrunnen">
+        <img class="slideshow" src="https://www.alleburgen.de/pics/he/hes373.jpg" alt"Hexenturm">
+        <img class="slideshow" src="http://www.weihnachtsmarkt-deutschland.de/bilder/dieburg-weihnachtsmarkt.jpg" alt="Weihnachtsmarkt">
+        <img class="slideshow" src="https://www.arbeiten-bei-stihl.de/assets/images/jpg/ueber_stihl/standorte/dieburg/HEADER_Dieburg_1280x1000px.jpg" alt="Fechenbach Schloss">
+        <img class="slideshow" src="https://www.da-imnetz.de/bilder/2012/07/21/2425690/1213387367-freibad-dieburg-1d5OuALtrkef.jpg" alt="Schwimmbad">
+        <img class="slideshow" src="http://gotravelaz.com/wp-content/uploads/images/Dieburg_8259.jpg" alt="Marktplatz">
+
+    </div>
+
+</body>
+
+<style>
+    body {
+        margin: 2em;
+    }
+    button{
+        background-color: #82ed8d;
+        padding: 1em 0.5em;
+    }
+
+    #BildProjektion {
+        display: grid;
+        grid-template-columns: 10% 5% 70% 5% 10%;
+        grid-template-areas: ". . center . ."
+                            "left . center . right"
+                            ". . center . .";
+    }
+    #BildProjektion img {
+        grid-area: center;
+        margin: 0 auto;
+        max-width: 100%;
+    }
+    #leftClick {
+        grid-area: left;
+    }
+    #rightClick {
+        grid-area: right;
+    }
+
+
+
+
+    #Bildergalerie {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    #Bildergalerie img{
+        width: 8em;
+        height: 8em;
+        margin: 1em;
+    }
+    h1{
+        text-align: center;
+    }
+
+</style>
+
+<script>
+    
+    // Bilderauswahl aus Galerie
+    var indexCurrentPicture;
+    var bildergalerie = document.getElementsByClassName("slideshow");
+    for(let i=0; i<bildergalerie.length; i++){
+        bildergalerie[i].addEventListener("click", show);
+    }
+    
+    // Bilderauswahl mit Buttons
+    var buttonNext = document.getElementById("rightClick").addEventListener("click", nextPicture);
+    var buttonPrevious = document.getElementById("leftClick").addEventListener("click", previousPicture);
+    
+    function show(){
+        console.log(this);
+        var bildquelle = this.src;
+        document.getElementById("BildZentriert").src = bildquelle;
+        indexCurrentPicture = getPosition();
+        console.log(indexCurrentPicture);
+    }
+    
+    function getPosition(){
+        for(let i=0; i<bildergalerie.length; i++){
+            if(bildergalerie[i].src==document.getElementById("BildZentriert").src){
+                return i;
+            }
+        }
+    }
+    
+    function nextPicture(){
+        if(indexCurrentPicture<bildergalerie.length-1){
+            document.getElementById("BildZentriert").src = bildergalerie[indexCurrentPicture+1].src;
+            indexCurrentPicture++;
+        }else{
+            console.log("Ende des Arrays erreicht!");
+        }
+    }
+    
+    function previousPicture(){
+        if(indexCurrentPicture>0){
+            document.getElementById("BildZentriert").src = bildergalerie[indexCurrentPicture-1].src;
+            indexCurrentPicture--;
+        }else{
+            console.log("Anfang des Arrays erreicht!");
+        }
+    }
+    
+</script>

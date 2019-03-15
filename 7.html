@@ -1,0 +1,139 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<body>
+
+    <!-- Artikel -->
+    <article id="slide1">
+        <p>hallo,</p>
+    </article>
+
+    <article id="slide2">
+        <p>wie</p>
+    </article>
+
+    <article id="slide3">
+        <p>geht's</p>
+    </article>
+
+    <article id="slide4">
+        <p>dir?</p>
+    </article>
+
+
+    <!--Schaltflächen & Anzeigen-->
+    <div id="buttons">
+        <button type="button" id="previous">previous</button>
+        <button type="button" id="next">next</button>
+        <button type="button" id="first">first</button>
+        <button type="button" id="last">last</button>
+    </div>
+
+    <div id="currentSlide" style="background-color: white; height: 50px; width: 50px;">1</div>
+    <div id="slidesSum" style="background-color: white; height: 50px; width: 50px;">4</div>
+
+</body>
+
+
+
+<style>
+    body {
+        width: 100%;
+        background-color: beige;
+    }
+
+    article {
+        width: 80%;
+        height: 80%;
+        margin: 0 auto;
+        background-color: #adccff;
+        position: relative;
+        display: none;
+    }
+
+    p {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
+
+    #slide1 {
+        display: block;
+    }
+
+
+    #buttons {text-align: center;}
+
+</style>
+
+<script>
+    // Buttons
+    var p = document.getElementById("previous");
+    var n = document.getElementById("next");
+    var f = document.getElementById("first");
+    var l = document.getElementById("last");
+    
+    // Listener
+    p.addEventListener("click", previous);
+    document.addEventListener("keydown", function(event) {
+        if(event.keyCode==37){
+            console.log("leftArrow");
+            previous();
+        }else if(event.keyCode==39){
+            console.log("rightArrow");
+            next();
+        }
+    });
+    n.addEventListener("click", next);
+    f.addEventListener("click", first);
+    l.addEventListener("click", last);
+    
+    
+    // Funktionen
+    var counter =0;
+    var articles = document.getElementsByTagName("article");
+    
+    function previous(){
+        // zurückschalten:
+        if(counter>0){
+            articles[counter].style.display="none";
+            articles[counter-1].style.display="block";
+            counter--;
+        }else{
+            console.log("Erster slide erreicht");
+        }
+        updateIndex();
+    }
+    
+    function next(){
+        // weiter schalten:
+        if(counter<articles.length-1){
+            articles[counter].style.display="none";
+            articles[counter+1].style.display="block";
+            counter++;
+        }else{
+            console.log("Letzer slide erreicht");
+        }
+        updateIndex();
+    }
+    
+    function first(){
+        articles[counter].style.display="none";
+        articles[0].style.display="block";
+        counter =0;
+        updateIndex();
+    }
+    
+    function last(){
+        articles[counter].style.display="none";
+        articles[articles.length-1].style.display="block";
+        counter=articles.length-1;
+        updateIndex();
+    }
+    
+    var current = document.getElementById("currentSlide");
+    function updateIndex(){
+        current.innerHTML=counter+1;
+    }
+</script>

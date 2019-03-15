@@ -1,0 +1,16 @@
+<style> button{font-weight: bold; font-size: 16px; line-height: 30px; font-family: "arial", sans-serif; padding: 10px 20px; background-color: blue; color: white;} /*button:active{color: blue; background-color:white; }*/</style>
+
+<script>
+    function changeColor(){
+        document.getElementsByTagName("button")[0].style.color = "blue";
+        document.getElementsByTagName("button")[0].style.backgroundColor = "white";
+    }
+    function changeColorBack(){
+        document.getElementsByTagName("button")[0].style.color = "white";
+        document.getElementsByTagName("button")[0].style.backgroundColor = "blue";
+    }
+</script>
+
+
+<button type="button" onmousedown="changeColor()" onmouseup="changeColorBack()" >Klick mich!</button>
+

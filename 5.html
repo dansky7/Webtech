@@ -1,0 +1,57 @@
+<div id="gameOfLive">
+    <div id="zellen"></div>
+</div>
+
+<script>
+    
+    // Hundert div-Boxen erstellen und in div-Box "gameOfLive" einfügen
+    var current;
+    var wrapper = document.getElementById("gameOfLive");
+    function createGame() {
+        for (let i = 0; i < 10; i++) {
+            for (let j = 0; j < 10; j++) {
+                // Erstellen
+                current = document.createElement("div");
+                current.id = "div" + i + j;
+                
+                // Einfärben
+                current.style.backgroundColor = color(/*current.id*/);
+                console.log(current);
+                
+                // Einfügen
+                wrapper.appendChild(current);
+                console.log(current);
+                
+            }
+        }
+    }
+    
+    // Einfärben von 60% der Boxen
+    var counter =0;
+    function color(id){
+        let a = Math.floor(Math.random() * 10);
+        console.log(a);
+        //if(id<10 || (id))
+        if(a<5 && counter <=60) {
+            return "black";
+        }else{
+            return "white";
+        }
+    
+    }
+
+    createGame();
+</script>
+
+<style>
+    #gameOfLive{
+        display:grid;
+        grid-template-columns: repeat(10, 1fr);
+        grid-template-rows: repeat(10,1fr);
+        grid-gap: 0.5em 0.5em;
+    }
+    #zellen{
+        height: 5em;
+        width: 5em;
+    }
+</style>
